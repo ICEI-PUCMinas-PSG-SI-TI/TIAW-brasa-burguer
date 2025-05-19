@@ -1,51 +1,280 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="shortcut icon" type="imagex/png" href="./image.png">
-    <link rel="stylesheet" href="./style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brasa Burguer | Cardápio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .navbar {
+      background-color: #ff3c00;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.8rem;
+    }
+
+    .card {
+      background-color: #2c2c2c;
+      border: none;
+      border-radius: 15px;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card-title {
+      color: #ff3c00;
+    }
+
+    .btn-order {
+      background-color: #ff3c00;
+      border: none;
+    }
+
+    .btn-order:hover {
+      background-color: #e63600;
+    }
+
+    .hero-section {
+      background: url('https://images.unsplash.com/photo-1606755962773-d324e0c1e5bd?auto=format&fit=crop&w=1470&q=80') no-repeat center center;
+      background-size: cover;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .hero-section h1 {
+      font-size: 3rem;
+    }
+
+    input::placeholder {
+      color: #888;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* estilo do botão voltar ao topo */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff3c00;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .back-to-top:hover {
+      background-color: #e63600;
+    }
+  </style>
 </head>
 <body>
-    <div id="particles-js"></div>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Brasa Burguer</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#cardapio">Cardápio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contato">Contato</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <div class="auth-wrapper d-flex align-items-center justify-content-center">
+  <!-- banner -->
+  <div class="hero-section">
+    <h1>🔥 Sinta o sabor da brasa! 🍔</h1>
+  </div>
 
-    <div class="login-container">
-        <h2 class="mb-4">Bem-vindo!</h2>
-        <form id="loginForm">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="username" placeholder="Digite seu usuário" required>
-                <label for="username">Usuário</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
-                <label for="password">Senha</label>
-            </div>
-            <button type="submit" class="btn btn-custom w-100 py-2">Entrar</button>
-            <div class="text-center mt-3">
-                <button type="button" class="btn btn-google w-100 py-2 d-flex align-items-center justify-content-center">
-                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" width="20" class="me-2">
-                    Entrar com o Google
-                </button>
-            </div>
-            <div class="forgot-password text-center mt-3">
-                <a href="#" class="text-decoration-none">Esqueceu a senha?</a>
-            </div>
-            <div class="new-user text-center mt-3">
-                <span>Primeira vez aqui? <a href="#" class="text-decoration-none">Crie uma conta</a></span>
-            </div>
-        </form>
+  <!-- cardápio -->
+  <div class="container my-5" id="cardapio">
+    <h2 class="text-center mb-4">Nosso Cardápio</h2>
+
+    <!-- barra de pesquisa -->
+    <div class="mb-4">
+      <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="🔍 Buscar hambúrguer...">
     </div>
 
-    <div class="auth-image d-none d-md-block">
-        <img src="./login.png" alt="Imagem ilustrativa" class="img-fluid rounded-end">
+    <div class="row g-4">
+
+      <!-- destaque monte seu Hambúrguer -->
+      <div class="col-12">
+        <div class="card p-4 bg-dark text-white">
+          <div class="row g-0 align-items-center">
+            <div class="col-md-6">
+              <img src="https://source.unsplash.com/600x400/?burger,custom" class="img-fluid rounded" alt="Monte seu Hambúrguer" />
+            </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h3 class="card-title text-warning">🍔 Monte Seu Hambúrguer</h3>
+                <p class="card-text">Escolha o pão, tipo de carne, acompanhamentos, molhos e monte o seu hambúrguer do seu jeito!</p>
+                <p class="fs-5 text-light">A partir de <strong>R$ 22,90</strong></p>
+                <button class="btn btn-order mt-2">Começar a Montar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- hamburgueres  -->
+      <div class="col-md-4 burger-card">
+        <div class="card p-3">
+          <img src="https://source.unsplash.com/400x300/?burger,cheese" class="card-img-top" alt="Brasa Clássico" />
+          <div class="card-body">
+            <h5 class="card-title">Brasa Clássico</h5>
+            <p class="card-text">Pão brioche, carne 180g, queijo cheddar e molho da casa.</p>
+            <p class="text-warning fw-bold">R$ 25,90</p>
+            <button class="btn btn-order w-100">Pedir Agora</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 burger-card">
+        <div class="card p-3">
+          <img src="https://source.unsplash.com/400x300/?burger,bacon" class="card-img-top" alt="Brasa Bacon" />
+          <div class="card-body">
+            <h5 class="card-title">Brasa Bacon</h5>
+            <p class="card-text">Bacon crocante, cheddar duplo e molho BBQ defumado.</p>
+            <p class="text-warning fw-bold">R$ 29,90</p>
+            <button class="btn btn-order w-100">Pedir Agora</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 burger-card">
+        <div class="card p-3">
+          <img src="https://source.unsplash.com/400x300/?burger,spicy" class="card-img-top" alt="Brasa Picante" />
+          <div class="card-body">
+            <h5 class="card-title">Brasa Picante</h5>
+            <p class="card-text">Pimenta jalapeño, queijo pepper jack e maionese apimentada.</p>
+            <p class="text-warning fw-bold">R$ 28,50</p>
+            <button class="btn btn-order w-100">Pedir Agora</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 burger-card">
+        <div class="card p-3">
+          <img src="https://source.unsplash.com/400x300/?burger,veggie" class="card-img-top" alt="Brasa Veggie" />
+          <div class="card-body">
+            <h5 class="card-title">Brasa Veggie</h5>
+            <p class="card-text">Hambúrguer vegetal, alface americana, tomate e maionese verde.</p>
+            <p class="text-warning fw-bold">R$ 27,90</p>
+            <button class="btn btn-order w-100">Pedir Agora</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 burger-card">
+        <div class="card p-3">
+          <img src="https://source.unsplash.com/400x300/?burger,double" class="card-img-top" alt="Brasa Duplo" />
+          <div class="card-body">
+            <h5 class="card-title">Brasa Duplo</h5>
+            <p class="card-text">Duas carnes suculentas, queijo duplo e molho da casa.</p>
+            <p class="text-warning fw-bold">R$ 32,90</p>
+            <button class="btn btn-order w-100">Pedir Agora</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 burger-card">
+        <div class="card p-3">
+          <img src="https://source.unsplash.com/400x300/?burger,chicken" class="card-img-top" alt="Brasa Chicken" />
+          <div class="card-body">
+            <h5 class="card-title">Brasa Chicken</h5>
+            <p class="card-text">Frango crocante, alface, maionese especial e cheddar.</p>
+            <p class="text-warning fw-bold">R$ 26,90</p>
+            <button class="btn btn-order w-100">Pedir Agora</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 burger-card">
+        <div class="card p-3">
+          <img src="https://source.unsplash.com/400x300/?burger,egg" class="card-img-top" alt="Brasa Egg" />
+          <div class="card-body">
+            <h5 class="card-title">Brasa Egg</h5>
+            <p class="card-text">Carne grelhada, ovo caipira e molho de alho assado.</p>
+            <p class="text-warning fw-bold">R$ 27,50</p>
+            <button class="btn btn-order w-100">Pedir Agora</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 burger-card">
+        <div class="card p-3">
+          <img src="https://source.unsplash.com/400x300/?burger,luxury" class="card-img-top" alt="Brasa Deluxe" />
+          <div class="card-body">
+            <h5 class="card-title">Brasa Deluxe</h5>
+            <p class="card-text">Pão australiano, cebola caramelizada, queijo suíço e rúcula fresca.</p>
+            <p class="text-warning fw-bold">R$ 34,90</p>
+            <button class="btn btn-order w-100">Pedir Agora</button>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+
+  <!-- contato (footer) -->
+  <footer id="contato" class="text-center py-4 mt-5" style="background-color: #2c2c2c;">
+    <p class="mb-0">© 2025 Brasa Burguer. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- botão voltar ao Topo -->
+  <button class="back-to-top" id="backToTop">&#8593;</button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // mostrar o botão "voltar ao topo"
+    window.onscroll = function() {
+      var button = document.getElementById("backToTop");
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        button.style.display = "block";
+      } else {
+        button.style.display = "none";
+      }
+    };
+
+    // voltar ao topo ao clicar
+    document.getElementById("backToTop").addEventListener("click", function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // pesquisa (ainda não implementada funcionalmente)
+    document.getElementById('searchInput').addEventListener('input', function(event) {
+      console.log(event.target.value); // Exibe no console a busca
+    });
+  </script>
 </body>
 </html>
