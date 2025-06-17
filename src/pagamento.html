@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pagamento - Brasa Burger</title>
   <style>
     body {
@@ -12,8 +12,9 @@
       padding: 0;
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: 100vh;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding-top: 30px;
     }
 
     .container {
@@ -23,11 +24,23 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 400px;
+      box-sizing: border-box;
     }
 
     h2 {
       text-align: center;
       color: #d84315;
+      margin-bottom: 20px;
+    }
+
+    .resumo {
+      background: #fff3e0;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
     }
 
     label {
@@ -65,7 +78,12 @@
 <body>
   <div class="container">
     <h2>Pagamento - Brasa Burger</h2>
-    <form action="/processar-pagamento" method="post">
+
+    <div class="resumo" id="resumoPedido">
+      <!-- Resumo do pedido e endereço será inserido aqui -->
+    </div>
+
+    <form id="pagamentoForm">
       <label for="nome">Nome do Titular (conforme cartão)</label>
       <input type="text" id="nome" name="nome" required>
 
@@ -84,5 +102,39 @@
       <button type="submit">Finalizar Pagamento</button>
     </form>
   </div>
+
+  <script>
+    // Recupera pedido do localStorage
+    const pedido = JSON.parse(localStorage.getItem('pedido'));
+
+    if (!pedido) {
+      alert('Nenhum pedido encontrado. Redirecionando para seleção.');
+      window.location.href = 'selecao.html';
+    } else {
+      const endereco = pedido.endereco || {};
+      const total = (pedido.burgerPrice || 0) + (pedido.drinkPrice || 0) + (pedido.sidePrice || 0);
+
+      // Monta o resumo detalhado
+      const resumoHtml = `
+        <strong>Hambúrguer:</strong> ${pedido.burger} (R$ ${pedido.burgerPrice.toFixed(2)})<br>
+        <strong>Bebida:</strong> ${pedido.drink} (R$ ${pedido.drinkPrice.toFixed(2)})<br>
+        <strong>Acompanhamento:</strong> ${pedido.side} (R$ ${pedido.sidePrice.toFixed(2)})<br>
+        <strong>Total:</strong> R$ ${total.toFixed(2)}<br><br>
+        <strong>Endereço de Entrega:</strong><br>
+        ${endereco.rua}, ${endereco.numero} ${endereco.complemento || ''} <br>
+        Bairro: ${endereco.bairro} <br>
+        CEP: ${endereco.cep}
+      `;
+
+      document.getElementById('resumoPedido').innerHTML = resumoHtml;
+    }
+
+    document.getElementById('pagamentoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Pagamento finalizado! Obrigado por escolher o Brasa Burger 🍔');
+      localStorage.removeItem('pedido');
+      window.location.href = 'index.html'; // ou página de agradecimento
+    });
+  </script>
 </body>
 </html>

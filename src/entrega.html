@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Entrega - Brasa Burger</title>
   <style>
     body {
@@ -65,7 +65,7 @@
 <body>
   <div class="container">
     <h2>Endereço de Entrega</h2>
-    <form action="/processar-entrega" method="post">
+    <form id="entregaForm">
       <label for="cep">CEP</label>
       <input type="text" id="cep" name="cep" maxlength="9" placeholder="00000-000" required>
 
@@ -84,5 +84,32 @@
       <button type="submit">Confirmar Endereço</button>
     </form>
   </div>
+
+  <script>
+    document.getElementById('entregaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Pega dados do formulário
+      const endereco = {
+        cep: document.getElementById('cep').value,
+        rua: document.getElementById('rua').value,
+        numero: document.getElementById('numero').value,
+        complemento: document.getElementById('complemento').value,
+        bairro: document.getElementById('bairro').value,
+      };
+
+      // Recupera pedido do localStorage
+      const pedido = JSON.parse(localStorage.getItem('pedido')) || {};
+
+      // Salva o endereço dentro do pedido
+      pedido.endereco = endereco;
+
+      // Atualiza localStorage
+      localStorage.setItem('pedido', JSON.stringify(pedido));
+
+      // Redireciona para a página de pagamento
+      window.location.href = 'pagamento.html';
+    });
+  </script>
 </body>
 </html>

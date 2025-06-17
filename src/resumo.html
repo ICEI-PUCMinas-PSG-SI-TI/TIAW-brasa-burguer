@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resumo do Pedido - Brasa Burger</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff3e0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #d84315;
+      margin-bottom: 20px;
+    }
+
+    .resumo-item {
+      margin: 15px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .total {
+      margin-top: 25px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #d84315;
+    }
+
+    .btn {
+      width: 100%;
+      background-color: #d84315;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+
+    .btn:hover {
+      background-color: #bf360c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Resumo do Pedido</h2>
+    <div class="resumo-item"><strong>Hambúrguer:</strong> <span id="resumo-burger"></span></div>
+    <div class="resumo-item"><strong>Bebida:</strong> <span id="resumo-drink"></span></div>
+    <div class="resumo-item"><strong>Acompanhamento:</strong> <span id="resumo-side"></span></div>
+    <div class="total">Total: R$ <span id="total"></span></div>
+
+    <button class="btn" onclick="finalizarPedido()">Ir para entrega</button>
+  </div>
+
+  <script>
+    const pedido = JSON.parse(localStorage.getItem('pedido'));
+
+    if (pedido) {
+      document.getElementById('resumo-burger').textContent = `${pedido.burger} (R$ ${pedido.burgerPrice})`;
+      document.getElementById('resumo-drink').textContent = `${pedido.drink} (R$ ${pedido.drinkPrice})`;
+      document.getElementById('resumo-side').textContent = `${pedido.side} (R$ ${pedido.sidePrice})`;
+
+      const total = pedido.burgerPrice + pedido.drinkPrice + pedido.sidePrice;
+      document.getElementById('total').textContent = total.toFixed(2);
+    } else {
+      alert("Nenhum pedido encontrado. Redirecionando...");
+      window.location.href = 'selecao.html';
+    }
+
+    function finalizarPedido() {
+      // Aqui você pode manter o alerta se quiser
+      alert("Vamos para a tela de entrega.");
+
+      // Redireciona para a página de entrega
+      window.location.href = 'entrega.html';
+    }
+  </script>
+</body>
+</html>

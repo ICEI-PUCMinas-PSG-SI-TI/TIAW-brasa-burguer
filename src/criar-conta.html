@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Criar Conta - Brasa Burger</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff3e0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #d84315;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      background-color: #d84315;
+      color: white;
+      padding: 12px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #bf360c;
+    }
+
+    .link-container {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .link-container a {
+      text-decoration: none;
+      color: #d84315;
+    }
+
+    .link-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Criar Conta - Brasa Burger</h2>
+    <form id="signupForm">
+      <label for="nome">Nome Completo</label>
+      <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required />
+
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required />
+
+      <label for="username">Usuário</label>
+      <input type="text" id="username" name="username" placeholder="Escolha um usuário" required />
+
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" placeholder="Crie uma senha" required />
+
+      <label for="passwordConfirm">Confirme a Senha</label>
+      <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirme a senha" required />
+
+      <button type="submit">Criar Conta</button>
+
+      <div class="link-container">
+        <span>Já tem uma conta? <a href="index.html">Login aqui</a></span>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+      if(password !== passwordConfirm) {
+        alert('As senhas não coincidem!');
+        return;
+      }
+
+      // Aqui você pode implementar a requisição para salvar o usuário no backend
+      try {
+        // Exemplo de envio POST (ajuste a URL para seu backend)
+        const response = await fetch('http://localhost:3000/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome, email, username, password })
+        });
+
+        if (response.ok) {
+            window.location.href = 'index.html';
+        } else {
+          const errorData = await response.json();
+          alert('Erro ao criar conta: ' + (errorData.message || 'Tente novamente.'));
+        }
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro na conexão com o servidor.');
+      }
+    });
+  </script>
+</body>
+</html>
