@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Escolha seus Adicionais - Brasa Burger</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff3e0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #d84315;
+      margin-bottom: 20px;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    .group-title {
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #d84315;
+      text-align: left;
+    }
+
+    .option {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .option:hover {
+      background-color: #fff3e0;
+    }
+
+    .option input[type="checkbox"] {
+      transform: scale(1.3);
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      flex-grow: 1;
+      text-align: left;
+      color: #333;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #d84315;
+      min-width: 50px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      width: 100%;
+      background-color: #d84315;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background-color: #bf360c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Escolha seus Adicionais</h2>
+    <form id="extrasForm">
+      <div class="group-title">Adicionais</div>
+
+      <label class="option">
+        <input type="checkbox" name="extras" value="Molho Especial" data-price="2" />
+        <img src="../images/molho.jpg" alt="Molho Especial" class="img" />
+        <div class="option-text">Molho Especial</div>
+        <div class="price">+ R$ 2</div>
+      </label>
+
+      <label class="option">
+        <input type="checkbox" name="extras" value="Queijo Extra" data-price="3" />
+        <img src="../images/maischeddar.jpg" alt="Queijo Extra" class="img" />
+        <div class="option-text">Queijo Extra</div>
+        <div class="price">+ R$ 3</div>
+      </label>
+
+      <label class="option">
+        <input type="checkbox" name="extras" value="Hambúrguer Extra" data-price="7" />
+        <img src="../images/hamb.jpeg" alt="Hambúrguer Extra" class="img" />
+        <div class="option-text">Hambúrguer Extra</div>
+        <div class="price">+ R$ 7</div>
+      </label>
+
+      <label class="option">
+        <input type="checkbox" name="extras" value="Maionese da Casa" data-price="2" />
+        <img src="../images/molhomaionese.jpeg" alt="Maionese da Casa" class="img" />
+        <div class="option-text">Maionese da Casa</div>
+        <div class="price">+ R$ 2</div>
+      </label>
+
+      <button type="submit" class="btn">Avançar</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('extrasForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const selectedExtras = document.querySelectorAll('input[name="extras"]:checked');
+      let extras = [];
+      let extrasTotal = 0;
+
+      selectedExtras.forEach(item => {
+        extras.push(item.value);
+        extrasTotal += Number(item.dataset.price);
+      });
+
+      const adicionais = {
+        extras,
+        extrasTotal
+      };
+
+      localStorage.setItem('adicionais', JSON.stringify(adicionais));
+
+      // Redirecionar para próxima etapa
+      window.location.href = 'resumo.html'; // ou outra página
+    });
+  </script>
+</body>
+</html>

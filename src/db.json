@@ -16,6 +16,13 @@
       "email": "diego@mail.com",
       "username": "diego",
       "password": "123"
+    },
+    {
+      "id": "f75a",
+      "nome": "Matheus Angelo",
+      "email": "matheusparanhosmg@gmail.com",
+      "username": "Matheus",
+      "password": "123456"
     }
   ]
 }

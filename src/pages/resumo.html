@@ -67,30 +67,38 @@
     <div class="resumo-item"><strong>Hambúrguer:</strong> <span id="resumo-burger"></span></div>
     <div class="resumo-item"><strong>Bebida:</strong> <span id="resumo-drink"></span></div>
     <div class="resumo-item"><strong>Acompanhamento:</strong> <span id="resumo-side"></span></div>
+    <div class="resumo-item"><strong>Adicionais:</strong> <span id="resumo-extras"></span></div>
     <div class="total">Total: R$ <span id="total"></span></div>
 
     <button class="btn" onclick="finalizarPedido()">Ir para entrega</button>
   </div>
 
-  <script>
-    const pedido = JSON.parse(localStorage.getItem('pedido'));
+<script>
+  const pedido = JSON.parse(localStorage.getItem('pedido'));
+  const adicionais = JSON.parse(localStorage.getItem('adicionais')) || { extras: [], extrasTotal: 0 };
 
-    if (pedido) {
-      document.getElementById('resumo-burger').textContent = `${pedido.burger} (R$ ${pedido.burgerPrice})`;
-      document.getElementById('resumo-drink').textContent = `${pedido.drink} (R$ ${pedido.drinkPrice})`;
-      document.getElementById('resumo-side').textContent = `${pedido.side} (R$ ${pedido.sidePrice})`;
+  if (pedido) {
+    document.getElementById('resumo-burger').textContent = `${pedido.burger} (R$ ${pedido.burgerPrice})`;
+    document.getElementById('resumo-drink').textContent = `${pedido.drink} (R$ ${pedido.drinkPrice})`;
+    document.getElementById('resumo-side').textContent = `${pedido.side} (R$ ${pedido.sidePrice})`;
 
-      const total = pedido.burgerPrice + pedido.drinkPrice + pedido.sidePrice;
-      document.getElementById('total').textContent = total.toFixed(2);
-    } else {
-      alert("Nenhum pedido encontrado. Redirecionando...");
-      window.location.href = 'selecao.html';
-    }
+    const extrasFormatados = adicionais.extras.length > 0 
+      ? adicionais.extras.join(', ') + ` (+R$ ${adicionais.extrasTotal.toFixed(2)})`
+      : 'Nenhum';
 
-    function finalizarPedido() {
-      // Redireciona para a página de entrega
-      window.location.href = 'entrega.html';
-    }
-  </script>
+    document.getElementById('resumo-extras').textContent = extrasFormatados;
+
+    const total = pedido.burgerPrice + pedido.drinkPrice + pedido.sidePrice + adicionais.extrasTotal;
+    document.getElementById('total').textContent = total.toFixed(2);
+  } else {
+    alert("Nenhum pedido encontrado. Redirecionando...");
+    window.location.href = 'selecao.html';
+  }
+
+  function finalizarPedido() {
+    window.location.href = 'entrega.html';
+  }
+</script>
+
 </body>
 </html>
