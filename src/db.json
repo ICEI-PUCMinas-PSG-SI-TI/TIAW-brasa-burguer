@@ -9,6 +9,13 @@
       "id": "2",
       "username": "cliente",
       "password": "senha123"
+    },
+    {
+      "id": "5dc1",
+      "nome": "diego",
+      "email": "diego@mail.com",
+      "username": "diego",
+      "password": "123"
     }
   ]
 }

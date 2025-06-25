@@ -121,7 +121,7 @@
         <strong>Acompanhamento:</strong> ${pedido.side} (R$ ${pedido.sidePrice.toFixed(2)})<br>
         <strong>Total:</strong> R$ ${total.toFixed(2)}<br><br>
         <strong>Endereço de Entrega:</strong><br>
-        ${endereco.rua}, ${endereco.numero} ${endereco.complemento || ''} <br>
+        Rua ${endereco.rua}, nº ${endereco.numero} / ${endereco.complemento || ''} <br>
         Bairro: ${endereco.bairro} <br>
         CEP: ${endereco.cep}
       `;
@@ -133,7 +133,7 @@
       e.preventDefault();
       alert('Pagamento finalizado! Obrigado por escolher o Brasa Burger 🍔');
       localStorage.removeItem('pedido');
-      window.location.href = 'index.html'; // ou página de agradecimento
+      window.location.href = 'index.html';
     });
   </script>
 </body>
